@@ -9,7 +9,7 @@ export default function App() {
       <header>
         <h1>Where in the world?</h1>
         <Link to="/">Home</Link>
-        <Link to="/turkey">Turkey</Link>
+        <Link to="/ukraine">Ukraine</Link>
       </header>
       <Routes>
         <Route path="/" element={<Countries />} />
