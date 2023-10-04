@@ -1,29 +1,16 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import Img from "../assets/images/ua.svg";
+import { Link, useParams } from "react-router-dom";
 
 export default function CountryDetail() {
   const { id } = useParams();
   const [currentCountry, setCurrentCountry] = React.useState(null);
   const [countryCode, setCountryCode] = React.useState(null);
 
-  // React.useEffect(() => {
-  //   Promise.all([
-  //     fetch(`https://restcountries.com/v3.1/alpha?codes=${id}`),
-  //     fetch(`https://restcountries.com/v3.1/all?fields=name,cca3`),
-  //   ])
-  //     .then(([resOne, resTwo]) => Promise.all([resOne.json(), resTwo.json()]))
-  //     .then(([dataOne, dataTwo]) => {
-  //       setCurrentCountry(dataOne[0]);
-  //       setCountryCode(dataTwo);
-  //     });
-  // }, []);
-
   React.useEffect(() => {
-    fetch(`https://restcountries.com/v3.1/alpha?codes=${id}`)
+    fetch(`https://restcountries.com/v3.1/alpha?fullText=true&codes=${id}`)
       .then((res) => res.json())
       .then((data) => setCurrentCountry(data[0]));
-  }, []);
+  }, [id]);
 
   // https://restcountries.com/v3.1/all?fields=name,cca3,borders
   //https://restcountries.com/v3.1/alpha?codes=CAN,MEX&fields=name
@@ -38,9 +25,19 @@ export default function CountryDetail() {
         .then((data) => setCountryCode(data));
     }
   }, [currentCountry]);
+  var countryBordersEls = "";
 
   if (countryCode) {
-    console.log(countryCode);
+    countryBordersEls = countryCode.map((code, index) => {
+      {
+        const cca3Country = currentCountry.borders[index].toLowerCase();
+        return (
+          <Link to={`/${cca3Country}`} key={cca3Country}>
+            {code.name.common}
+          </Link>
+        );
+      }
+    });
   }
 
   return (
@@ -87,7 +84,7 @@ export default function CountryDetail() {
             <span>{Object.values(currentCountry.languages).join(", ")}</span>
           </h4>
           <h4>Border Countries:</h4>
-          <ul>{countryCode && <h1>YEP</h1>}</ul>
+          <ul>{countryCode && countryBordersEls}</ul>
         </section>
       ) : (
         <h2>Loading....</h2>
