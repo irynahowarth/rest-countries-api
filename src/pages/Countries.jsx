@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CountryCard from "../components/CountryCard";
 
 export default function Countries() {
@@ -12,15 +13,17 @@ export default function Countries() {
   const countryList =
     (countries.length > 0 &&
       countries.map((country) => {
+        // country.name.common
         return (
-          <CountryCard
-            key={country.cca3}
-            name={country.name.official}
-            population={country.population}
-            region={country.region}
-            capital={country.capital}
-            image={country.flags.svg}
-          />
+          <Link key={country.cca3} to={`/${country.cca3.toLowerCase()}`}>
+            <CountryCard
+              name={country.name.official}
+              population={country.population}
+              region={country.region}
+              capital={country.capital}
+              image={country.flags.svg}
+            />
+          </Link>
         );
       })) ||
     "";
