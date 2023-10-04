@@ -1,19 +1,18 @@
 import React from "react";
-import Img from "../assets/images/ua.svg";
 
-export default function CountryCard() {
+export default function CountryCard(props) {
   return (
     <section>
-      <img src={Img} width={150} />
-      <h1>Country Name</h1>
+      <img src={props.image} width={150} />
+      <h1>{props.name}</h1>
       <h4>
-        Population: <span>44134693</span>
+        Population: <span>{props.population}</span>
       </h4>
       <h4>
-        Region: <span>Europe</span>
+        Region: <span>{props.region}</span>
       </h4>
       <h4>
-        Capital: <span>Kyiv</span>
+        Capital: <span>{props.capital ? props.capital.join(", ") : ""}</span>
       </h4>
     </section>
   );
