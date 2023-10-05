@@ -13,7 +13,7 @@ export default function CountryDetail() {
   }, [id]);
 
   React.useEffect(() => {
-    if (currentCountry) {
+    if (currentCountry && currentCountry.borders) {
       const codeQuery = currentCountry.borders.join(",");
       fetch(
         `https://restcountries.com/v3.1/alpha?codes=${codeQuery}&fields=name,cca3`
@@ -77,8 +77,9 @@ export default function CountryDetail() {
             Languages:{" "}
             <span>{Object.values(currentCountry.languages).join(", ")}</span>
           </h4>
-          <h4>Border Countries:</h4>
-          <ul>{countryCode && countryBordersEls}</ul>
+          {currentCountry?.borders && <h4>Border Countries:</h4>}
+          {!currentCountry?.borders && <h4>Country has no border countries</h4>}
+          {countryCode && <ul>{countryBordersEls}</ul>}
         </section>
       ) : (
         <h2>Loading....</h2>
