@@ -12,14 +12,11 @@ export default function CountryDetail() {
       .then((data) => setCurrentCountry(data[0]));
   }, [id]);
 
-  // https://restcountries.com/v3.1/all?fields=name,cca3,borders
-  //https://restcountries.com/v3.1/alpha?codes=CAN,MEX&fields=name
-
   React.useEffect(() => {
     if (currentCountry) {
       const codeQuery = currentCountry.borders.join(",");
       fetch(
-        `https://restcountries.com/v3.1/alpha?codes=${codeQuery}&fields=name`
+        `https://restcountries.com/v3.1/alpha?codes=${codeQuery}&fields=name,cca3`
       )
         .then((res) => res.json())
         .then((data) => setCountryCode(data));
@@ -28,15 +25,12 @@ export default function CountryDetail() {
   var countryBordersEls = "";
 
   if (countryCode) {
-    countryBordersEls = countryCode.map((code, index) => {
-      {
-        const cca3Country = currentCountry.borders[index].toLowerCase();
-        return (
-          <Link to={`/${cca3Country}`} key={cca3Country}>
-            {code.name.common}
-          </Link>
-        );
-      }
+    countryBordersEls = countryCode.map((el) => {
+      return (
+        <Link to={`/${el.cca3.toLowerCase()}`} key={el.cca3}>
+          {el.name.common}
+        </Link>
+      );
     });
   }
 
