@@ -13,7 +13,7 @@ export default function Layout() {
 
   return (
     <ModeContext.Provider value={{ mode, toggleMode }}>
-      <div className={`site-wrapper ${mode}-mode`}>
+      <div className={`container ${mode}-mode`}>
         <Header />
         <main>
           <Outlet />

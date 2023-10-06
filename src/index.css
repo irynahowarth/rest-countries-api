@@ -1,3 +1,9 @@
+/* - Dark Blue (Dark Mode Elements): hsl(209, 23%, 22%)
+- Very Dark Blue (Dark Mode Background): hsl(207, 26%, 17%)
+- Very Dark Blue (Light Mode Text): hsl(200, 15%, 8%)
+- Dark Gray (Light Mode Input): hsl(0, 0%, 52%)
+- Very Light Gray (Light Mode Background): hsl(0, 0%, 98%)
+- White (Dark Mode Text & Light Mode Elements): hsl(0, 0%, 100%) */
 :root{
   --elements-dm: hsl(209, 23%, 22%);
   --bg-dm:hsl(207, 26%, 17%);
@@ -24,9 +30,136 @@ a {
   color: unset;
 }
 
-/* - Dark Blue (Dark Mode Elements): hsl(209, 23%, 22%)
-- Very Dark Blue (Dark Mode Background): hsl(207, 26%, 17%)
-- Very Dark Blue (Light Mode Text): hsl(200, 15%, 8%)
-- Dark Gray (Light Mode Input): hsl(0, 0%, 52%)
-- Very Light Gray (Light Mode Background): hsl(0, 0%, 98%)
-- White (Dark Mode Text & Light Mode Elements): hsl(0, 0%, 100%) */
+.container{
+  height: 100%;
+  min-height: 100vh;
+  
+}
+
+header{
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 80px;
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.10);
+}
+
+.container.dark-mode{
+  background: var(--bg-dm);
+}
+
+.container.light-mode{
+  background: var(--bg-lm);
+}
+
+header.dark-mode{
+  background: var(--elements-dm);
+  color: var(--elements-lm);
+}
+
+header.light-mode{
+  background: var(--elements-lm);
+  color: var(--text-lm);
+}
+
+header .site-logo{
+  font-weight: 900;
+  font-size: 24px;
+}
+
+header button{
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+header button:focus {
+  outline: none;
+}
+
+header.dark-mode button{
+  color: var(--elements-lm);
+}
+
+.country-list-container{
+  padding: 0 80px;
+}
+.country-list-filters{
+  margin:48px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name-filter{
+  width: 480px;
+}
+
+.select-region-filter, .name-filter{
+  min-height: 56px;
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.10);
+  border: none;
+  border-radius: 3px;
+  padding-inline: 24px;
+}
+.select-region-filter{
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+}
+.select-region-filter select{
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+.country-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap:74px;
+}
+
+.country-tile{
+  width: 260px;
+  min-height: 340px;
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.10);
+  border: none;
+  border-radius: 3px;
+}
+
+.country-tile-flag{
+  height: 162px;
+  width: 100%;
+}
+.country-tile-flag img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.country-tile-details{
+  padding: 26px;
+}
+
+.country-tile h3{
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.country-tile h4{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.country-tile h4 > span{
+  font-weight: 300;
+}

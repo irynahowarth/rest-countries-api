@@ -22,15 +22,17 @@ export default function Countries() {
   function renderCountry(arr) {
     return arr.map((country) => {
       return (
-        <Link key={country.cca3} to={`/${country.cca3.toLowerCase()}`}>
-          <CountryCard
-            name={country.name.official}
-            population={country.population}
-            region={country.region}
-            capital={country.capital}
-            image={country.flags.svg}
-          />
-        </Link>
+        <div className="country-tile" key={country.cca3}>
+          <Link to={`/${country.cca3.toLowerCase()}`}>
+            <CountryCard
+              name={country.name.official}
+              population={country.population}
+              region={country.region}
+              capital={country.capital}
+              image={country.flags.svg}
+            />
+          </Link>
+        </div>
       );
     });
   }
@@ -47,37 +49,34 @@ export default function Countries() {
       : "No data availible";
 
   return (
-    <>
-      <h1>List of Countries here</h1>
-      <form
-        style={{ display: "block" }}
-        onSubmit={(event) => event.preventDefault()}
-      >
+    <div className="country-list-container">
+      <div className="country-list-filters">
         <input
           placeholder="Search for a country..."
-          id="name-filter"
+          className="name-filter"
           value={filterName}
           onChange={(event) => {
             setFilterName(event.target.value);
           }}
         />
-        <select
-          name="region"
-          id="region-filter"
-          value={filterRegion}
-          onChange={(event) => {
-            setFilterRegion(event.target.value);
-          }}
-        >
-          <option value="">Filter by Region</option>
-          <option value="africa">Africa</option>
-          <option value="americas">Americas</option>
-          <option value="asia">Asia</option>
-          <option value="europe">Europe</option>
-          <option value="oceania">Oceania</option>
-        </select>
-      </form>
-      {countryList}
-    </>
+        <div className="select-region-filter">
+          <select
+            name="region"
+            value={filterRegion}
+            onChange={(event) => {
+              setFilterRegion(event.target.value);
+            }}
+          >
+            <option value="">Filter by Region</option>
+            <option value="africa">Africa</option>
+            <option value="americas">Americas</option>
+            <option value="asia">Asia</option>
+            <option value="europe">Europe</option>
+            <option value="oceania">Oceania</option>
+          </select>
+        </div>
+      </div>
+      <div className="country-list">{countryList}</div>
+    </div>
   );
 }
