@@ -27,9 +27,9 @@ export default function CountryDetail() {
   if (countryCode) {
     countryBordersEls = countryCode.map((el) => {
       return (
-        <Link to={`/${el.cca3.toLowerCase()}`} key={el.cca3}>
-          {el.name.common}
-        </Link>
+        <li key={el.cca3}>
+          <Link to={`/${el.cca3.toLowerCase()}`}>{el.name.common}</Link>
+        </li>
       );
     });
   }
@@ -37,50 +37,74 @@ export default function CountryDetail() {
   return (
     <>
       {currentCountry ? (
-        <section>
-          <img src={currentCountry.flags.svg} width={300} />
-          <h2>{currentCountry.name.official}</h2>
-          <h4>
-            Native Name:{" "}
-            <span>
-              {Object.values(currentCountry.name.nativeName)
-                .map((item) => item.official)
-                .join(" ,")}
-            </span>
-          </h4>
-          <h4>
-            Population: <span>{currentCountry.population}</span>
-          </h4>
-          <h4>
-            Region: <span>{currentCountry.region}</span>
-          </h4>
-          {currentCountry.subregion && (
-            <h4>
-              Sub Region: <span>{currentCountry.subregion}</span>
-            </h4>
-          )}
-          <h4>
-            Capital: <span>{currentCountry.capital.join(", ")}</span>
-          </h4>
-          <h4>
-            Top Level Domain: <span>{currentCountry.tld.join(", ")}</span>
-          </h4>
-          <h4>
-            Currencies:{" "}
-            <span>
-              {Object.values(currentCountry.currencies)
-                .map((item) => item.name)
-                .join(", ")}
-            </span>
-          </h4>
-          <h4>
-            Languages:{" "}
-            <span>{Object.values(currentCountry.languages).join(", ")}</span>
-          </h4>
-          {currentCountry?.borders && <h4>Border Countries:</h4>}
-          {!currentCountry?.borders && <h4>Country has no border countries</h4>}
-          {countryCode && <ul>{countryBordersEls}</ul>}
-        </section>
+        <div className="country-detail-container">
+          <Link to=".." relative="path" className="back-button">
+            &larr; <span>Back</span>
+          </Link>
+          <div className="country-detail">
+            <div className="country-detail-flag">
+              <img src={currentCountry.flags.svg} />
+            </div>
+            <div className="country-detail-info">
+              <h2 className="country-detail-name">
+                {currentCountry.name.official}
+              </h2>
+              <div className="country-detail-info-full">
+                <div>
+                  <h4>
+                    Native Name:{" "}
+                    <span>
+                      {Object.values(currentCountry.name.nativeName)
+                        .map((item) => item.official)
+                        .join(" ,")}
+                    </span>
+                  </h4>
+                  <h4>
+                    Population: <span>{currentCountry.population}</span>
+                  </h4>
+                  <h4>
+                    Region: <span>{currentCountry.region}</span>
+                  </h4>
+                  {currentCountry.subregion && (
+                    <h4>
+                      Sub Region: <span>{currentCountry.subregion}</span>
+                    </h4>
+                  )}
+                  <h4>
+                    Capital: <span>{currentCountry.capital.join(", ")}</span>
+                  </h4>
+                </div>
+                <div>
+                  <h4>
+                    Top Level Domain:{" "}
+                    <span>{currentCountry.tld.join(", ")}</span>
+                  </h4>
+                  <h4>
+                    Currencies:{" "}
+                    <span>
+                      {Object.values(currentCountry.currencies)
+                        .map((item) => item.name)
+                        .join(", ")}
+                    </span>
+                  </h4>
+                  <h4>
+                    Languages:{" "}
+                    <span>
+                      {Object.values(currentCountry.languages).join(", ")}
+                    </span>
+                  </h4>
+                </div>
+              </div>
+              <div className="country-detail-borders">
+                {currentCountry?.borders && <h4>Border Countries:</h4>}
+                {!currentCountry?.borders && (
+                  <h4>Country has no border countries</h4>
+                )}
+                {countryCode && <ul>{countryBordersEls}</ul>}
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
         <h2>Loading....</h2>
       )}
